@@ -62,7 +62,6 @@ osThreadId defaultTaskHandle;
 osThreadId queueProcessingHandle;
 osMessageQId myQueue01Handle;
 
-
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 QueueHandle_t xQueue;
@@ -593,6 +592,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
 	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 	xQueueSendFromISR(xQueue, (void*) &GPIO_Pin, &xHigherPriorityTaskWoken);
+	//xQueueSend(xQueue, (void*) &GPIO_Pin, 0);
 
 //	HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);
 //	if (GPIO_Pin == GPIO_PIN_6) {
