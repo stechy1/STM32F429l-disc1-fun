@@ -52,6 +52,7 @@
 #include "cmsis_os.h"
 
 /* USER CODE BEGIN Includes */
+#include "gfx.h"
 #include "queue.h"
 /* USER CODE END Includes */
 
@@ -60,6 +61,7 @@ TIM_HandleTypeDef htim6;
 
 osThreadId defaultTaskHandle;
 osThreadId queueProcessingHandle;
+osThreadId gfxInitHandle;
 osMessageQId myQueue01Handle;
 
 /* USER CODE BEGIN PV */
@@ -74,7 +76,7 @@ static void MX_GPIO_Init(void);
 static void MX_TIM6_Init(void);
 void StartDefaultTask(void const * argument);
 void startQueueProcessing(void const * argument);
-
+void StartGfxInit(void const * argument);
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 
@@ -135,6 +137,10 @@ int main(void)
   /* definition and creation of queueProcessing */
   osThreadDef(queueProcessing, startQueueProcessing, osPriorityNormal, 0, 128);
   queueProcessingHandle = osThreadCreate(osThread(queueProcessing), NULL);
+
+  /* definition and creation of gfxInit */
+  osThreadDef(gfxInit, StartGfxInit, osPriorityIdle, 0, 128);
+  gfxInitHandle = osThreadCreate(osThread(gfxInit), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
@@ -608,6 +614,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
 
 }
+
 /* USER CODE END 4 */
 
 /* StartDefaultTask function */
@@ -644,6 +651,17 @@ void startQueueProcessing(void const * argument)
     osDelay(1);
   }
   /* USER CODE END startQueueProcessing */
+}
+
+/* StartGfxInit function */
+void StartGfxInit(void const * argument)
+{
+  /* USER CODE BEGIN StartGfxInit */
+  /* Infinite loop */
+	(void)argument;
+
+	gfxInit();
+  /* USER CODE END StartGfxInit */
 }
 
 /**
