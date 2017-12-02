@@ -61,7 +61,6 @@ TIM_HandleTypeDef htim6;
 
 osThreadId defaultTaskHandle;
 osThreadId queueProcessingHandle;
-osThreadId gfxInitHandle;
 osMessageQId myQueue01Handle;
 
 /* USER CODE BEGIN PV */
@@ -76,7 +75,7 @@ static void MX_GPIO_Init(void);
 static void MX_TIM6_Init(void);
 void StartDefaultTask(void const * argument);
 void startQueueProcessing(void const * argument);
-void StartGfxInit(void const * argument);
+
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 
@@ -114,7 +113,7 @@ int main(void)
   MX_TIM6_Init();
 
   /* USER CODE BEGIN 2 */
-	HAL_TIM_Base_Start_IT(&htim6);
+	//HAL_TIM_Base_Start_IT(&htim6);
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -137,10 +136,6 @@ int main(void)
   /* definition and creation of queueProcessing */
   osThreadDef(queueProcessing, startQueueProcessing, osPriorityNormal, 0, 128);
   queueProcessingHandle = osThreadCreate(osThread(queueProcessing), NULL);
-
-  /* definition and creation of gfxInit */
-  osThreadDef(gfxInit, StartGfxInit, osPriorityIdle, 0, 128);
-  gfxInitHandle = osThreadCreate(osThread(gfxInit), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
@@ -615,6 +610,29 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
 }
 
+static GHandle ghLabel1;
+
+static void createWidgets(void)
+{
+	GWidgetInit		wi;
+
+	// Apply some default values for GWIN
+	wi.customDraw = 0;
+	wi.customParam = 0;
+	wi.customStyle = 0;
+	wi.g.show = TRUE;
+
+	// Apply the label parameters
+	wi.g.y = 10;
+	wi.g.x = 10;
+	wi.g.width = 100;
+	wi.g.height = 20;
+	wi.text = "Label 1";
+
+	// Create the actual label
+	ghLabel1 = gwinLabelCreate(NULL, &wi);
+}
+
 /* USER CODE END 4 */
 
 /* StartDefaultTask function */
@@ -622,11 +640,9 @@ void StartDefaultTask(void const * argument)
 {
 
   /* USER CODE BEGIN 5 */
-	/* Infinite loop */
-	for (;;) {
-		//HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);
-		osDelay(1259);
-	}
+	(void) argument;
+	gfxInit();
+	createWidgets();
   /* USER CODE END 5 */ 
 }
 
@@ -651,17 +667,6 @@ void startQueueProcessing(void const * argument)
     osDelay(1);
   }
   /* USER CODE END startQueueProcessing */
-}
-
-/* StartGfxInit function */
-void StartGfxInit(void const * argument)
-{
-  /* USER CODE BEGIN StartGfxInit */
-  /* Infinite loop */
-	(void)argument;
-
-	gfxInit();
-  /* USER CODE END StartGfxInit */
 }
 
 /**

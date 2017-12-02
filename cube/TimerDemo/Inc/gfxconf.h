@@ -85,7 +85,7 @@
 //#define GDISP_NEED_QUERY                             FALSE
 //#define GDISP_NEED_MULTITHREAD                       FALSE
 //#define GDISP_NEED_STREAMING                         FALSE
-//#define GDISP_NEED_TEXT                              FALSE
+#define GDISP_NEED_TEXT                              TRUE
 //    #define GDISP_NEED_TEXT_WORDWRAP                 FALSE
 //    #define GDISP_NEED_TEXT_BOXPADLR                 1
 //    #define GDISP_NEED_TEXT_BOXPADTB                 1
@@ -93,7 +93,7 @@
 //    #define GDISP_NEED_UTF8                          FALSE
 //    #define GDISP_NEED_TEXT_KERNING                  FALSE
 //    #define GDISP_INCLUDE_FONT_UI1                   FALSE
-//    #define GDISP_INCLUDE_FONT_UI2                   FALSE		// The smallest preferred font.
+    #define GDISP_INCLUDE_FONT_UI2                   TRUE		// The smallest preferred font.
 //    #define GDISP_INCLUDE_FONT_LARGENUMBERS          FALSE
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANS10          FALSE
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANS12          FALSE
@@ -175,7 +175,7 @@
 //        #define GDISP_HARDWARE_QUERY                 FALSE
 //        #define GDISP_HARDWARE_CLIP                  FALSE
 
-//        #define GDISP_PIXELFORMAT                    GDISP_PIXELFORMAT_RGB888
+        #define GDISP_PIXELFORMAT                    GDISP_PIXELFORMAT_RGB888
 //    #endif
 
 //#define GDISP_USE_GFXNET                             FALSE
@@ -188,7 +188,7 @@
 ///////////////////////////////////////////////////////////////////////////
 // GWIN                                                                  //
 ///////////////////////////////////////////////////////////////////////////
-//#define GFX_USE_GWIN                                 FALSE
+#define GFX_USE_GWIN                                 TRUE
 
 //#define GWIN_NEED_WINDOWMANAGER                      FALSE
 //    #define GWIN_REDRAW_IMMEDIATE                    FALSE
@@ -206,9 +206,9 @@
 //#define GWIN_NEED_GRAPH                              FALSE
 //#define GWIN_NEED_GL3D                               FALSE
 
-//#define GWIN_NEED_WIDGET                             FALSE
+#define GWIN_NEED_WIDGET                             TRUE
 //#define GWIN_FOCUS_HIGHLIGHT_WIDTH                   1
-//    #define GWIN_NEED_LABEL                          FALSE
+    #define GWIN_NEED_LABEL                          TRUE
 //        #define GWIN_LABEL_ATTRIBUTE                 FALSE
 //    #define GWIN_NEED_BUTTON                         FALSE
 //        #define GWIN_BUTTON_LAZY_RELEASE             FALSE
@@ -276,7 +276,7 @@
 ///////////////////////////////////////////////////////////////////////////
 // GINPUT                                                                //
 ///////////////////////////////////////////////////////////////////////////
-//#define GFX_USE_GINPUT                               FALSE
+#define GFX_USE_GINPUT                               TRUE
 
 //#define GINPUT_NEED_MOUSE                            FALSE
 //    #define GINPUT_TOUCH_STARTRAW                    FALSE
