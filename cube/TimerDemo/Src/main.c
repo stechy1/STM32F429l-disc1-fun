@@ -57,8 +57,6 @@
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
-TIM_HandleTypeDef htim6;
-
 osThreadId defaultTaskHandle;
 osThreadId queueProcessingHandle;
 osMessageQId myQueue01Handle;
@@ -72,7 +70,6 @@ QueueHandle_t xQueue;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_TIM6_Init(void);
 void StartDefaultTask(void const * argument);
 void startQueueProcessing(void const * argument);
 
@@ -110,7 +107,6 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_TIM6_Init();
 
   /* USER CODE BEGIN 2 */
 	//HAL_TIM_Base_Start_IT(&htim6);
@@ -222,30 +218,6 @@ void SystemClock_Config(void)
 
   /* SysTick_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(SysTick_IRQn, 15, 0);
-}
-
-/* TIM6 init function */
-static void MX_TIM6_Init(void)
-{
-
-  TIM_MasterConfigTypeDef sMasterConfig;
-
-  htim6.Instance = TIM6;
-  htim6.Init.Prescaler = 39999;
-  htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim6.Init.Period = 1999;
-  if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
 }
 
 /** Configure pins as 
@@ -505,12 +477,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PG6 PG9 */
-  GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_9;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
-
   /*Configure GPIO pins : DOTCLK_Pin B3_Pin */
   GPIO_InitStruct.Pin = DOTCLK_Pin|B3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -581,10 +547,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.Alternate = GPIO_AF12_FMC;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 5, 0);
-  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
 
 }
 
