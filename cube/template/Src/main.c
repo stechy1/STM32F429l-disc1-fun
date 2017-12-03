@@ -56,6 +56,8 @@
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
+TIM_HandleTypeDef htim6;
+
 osThreadId defaultTaskHandle;
 
 /* USER CODE BEGIN PV */
@@ -67,6 +69,7 @@ static GHandle   ghButton1;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_TIM6_Init(void);
 void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
@@ -103,9 +106,10 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_TIM6_Init();
 
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start_IT(&htim6);
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -164,7 +168,7 @@ void SystemClock_Config(void)
     */
   __HAL_RCC_PWR_CLK_ENABLE();
 
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
@@ -174,17 +178,10 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 180;
+  RCC_OscInitStruct.PLL.PLLN = 80;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 7;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-    /**Activate the Over-Drive mode 
-    */
-  if (HAL_PWREx_EnableOverDrive() != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -195,10 +192,10 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -213,6 +210,30 @@ void SystemClock_Config(void)
 
   /* SysTick_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(SysTick_IRQn, 15, 0);
+}
+
+/* TIM6 init function */
+static void MX_TIM6_Init(void)
+{
+
+  TIM_MasterConfigTypeDef sMasterConfig;
+
+  htim6.Instance = TIM6;
+  htim6.Init.Prescaler = 39999;
+  htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim6.Init.Period = 1999;
+  if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
 }
 
 /** Configure pins as 
@@ -564,6 +585,37 @@ static void createWidgets(void) {
 	// Create the actual button
 	ghButton1 = gwinButtonCreate(NULL, &wi);
 }
+
+void uGFXMain(void) {
+	GEvent* pe;
+
+	gdispClear(White);
+
+	// create the widget
+	createWidgets();
+
+	// We want to listen for widget events
+	geventListenerInit(&gl);
+	gwinAttachListener(&gl);
+
+	while(1) {
+		// Get an Event
+		pe = geventEventWait(&gl, TIME_INFINITE);
+
+		switch(pe->type) {
+			case GEVENT_GWIN_BUTTON:
+				if (((GEventGWinButton*)pe)->gwin == ghButton1) {
+					// Our button has been pressed
+					//printf("Button clicked\r\n");
+					HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);
+				}
+				break;
+
+			default:
+				break;
+		}
+	}
+}
 /* USER CODE END 4 */
 
 /* StartDefaultTask function */
@@ -571,34 +623,39 @@ void StartDefaultTask(void const * argument)
 {
 
   /* USER CODE BEGIN 5 */
+//	for (;;) {
+//			HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);
+//			osDelay(1259);
+//		}
 	GEvent* pe;
 	gfxInit();
-
+	HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);
 	gdispClear(White);
 
-		// create the widget
-		createWidgets();
+	// create the widget
+	createWidgets();
 
-		// We want to listen for widget events
-		geventListenerInit(&gl);
-		gwinAttachListener(&gl);
+	// We want to listen for widget events
+	geventListenerInit(&gl);
+	gwinAttachListener(&gl);
 
-		while(1) {
-			// Get an Event
-			pe = geventEventWait(&gl, TIME_INFINITE);
+	while(1) {
+		// Get an Event
+		pe = geventEventWait(&gl, TIME_INFINITE);
 
-			switch(pe->type) {
-				case GEVENT_GWIN_BUTTON:
-					if (((GEventGWinButton*)pe)->gwin == ghButton1) {
-						// Our button has been pressed
-						printf("Button clicked\r\n");
-					}
-					break;
 
-				default:
-					break;
-			}
+		switch(pe->type) {
+			case GEVENT_GWIN_BUTTON:
+				if (((GEventGWinButton*)pe)->gwin == ghButton1) {
+					// Our button has been pressed
+					printf("Button clicked\r\n");
+				}
+				break;
+
+			default:
+				break;
 		}
+	}
 
 
   /* USER CODE END 5 */ 
@@ -621,7 +678,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
 /* USER CODE BEGIN Callback 1 */
-
+  if (htim->Instance == TIM6) {
+	  HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);
+	  return;
+  }
 /* USER CODE END Callback 1 */
 }
 
