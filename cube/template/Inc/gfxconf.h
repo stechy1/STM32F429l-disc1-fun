@@ -28,7 +28,7 @@
 ///////////////////////////////////////////////////////////////////////////
 //#define GFX_USE_OS_CHIBIOS                           FALSE
 #define GFX_USE_OS_FREERTOS                          TRUE
-//    #define GFX_FREERTOS_USE_TRACE                   FALSE
+//    #define GFX_FREERTOS_USE_TRACE                   TRUE
 //#define GFX_USE_OS_WIN32                             FALSE
 //#define GFX_USE_OS_LINUX                             FALSE
 //#define GFX_USE_OS_OSX                               FALSE
@@ -50,7 +50,7 @@
 //    #define GFX_NO_INLINE                            FALSE
 //    #define GFX_COMPILER                             GFX_COMPILER_UNKNOWN
 //    #define GFX_SHOW_COMPILER                        FALSE
-//    #define GFX_CPU                                  GFX_CPU_UNKNOWN
+    #define GFX_CPU                                  GFX_CPU_CORTEX_M4
 //    #define GFX_CPU_NO_ALIGNMENT_FAULTS              FALSE
 //    #define GFX_CPU_ENDIAN                           GFX_CPU_ENDIAN_UNKNOWN
 //    #define GFX_OS_HEAP_SIZE                         0
@@ -59,7 +59,7 @@
 //    #define GFX_OS_PRE_INIT_FUNCTION                 myHardwareInitRoutine
 //    #define GFX_OS_EXTRA_INIT_FUNCTION               myOSInitRoutine
 //    #define GFX_OS_EXTRA_DEINIT_FUNCTION             myOSDeInitRoutine
-    #define GFX_OS_CALL_UGFXMAIN                     TRUE
+//    #define GFX_OS_CALL_UGFXMAIN                     TRUE
 //    #define GFX_OS_UGFXMAIN_STACKSIZE                0
 //    #define GFX_EMULATE_MALLOC                       FALSE
 
@@ -71,8 +71,8 @@
 
 //#define GDISP_NEED_AUTOFLUSH                         FALSE
 //#define GDISP_NEED_TIMERFLUSH                        FALSE
-//#define GDISP_NEED_VALIDATION                        TRUE
-//#define GDISP_NEED_CLIP                              TRUE
+#define GDISP_NEED_VALIDATION                        TRUE
+#define GDISP_NEED_CLIP                              TRUE
 //#define GDISP_NEED_CIRCLE                            FALSE
 //#define GDISP_NEED_DUALCIRCLE                        FALSE
 //#define GDISP_NEED_ELLIPSE                           FALSE
@@ -83,7 +83,7 @@
 //#define GDISP_NEED_PIXELREAD                         FALSE
 //#define GDISP_NEED_CONTROL                           FALSE
 //#define GDISP_NEED_QUERY                             FALSE
-//#define GDISP_NEED_MULTITHREAD                       FALSE
+#define GDISP_NEED_MULTITHREAD                       TRUE
 //#define GDISP_NEED_STREAMING                         FALSE
 #define GDISP_NEED_TEXT                              TRUE
 //    #define GDISP_NEED_TEXT_WORDWRAP                 FALSE
@@ -155,15 +155,15 @@
 //#define GDISP_DEFAULT_ORIENTATION                    GDISP_ROTATE_LANDSCAPE    // If not defined the native hardware orientation is used.
 //#define GDISP_LINEBUF_SIZE                           128
 //#define GDISP_STARTUP_COLOR                          Black
-//#define GDISP_NEED_STARTUP_LOGO                      TRUE
+#define GDISP_NEED_STARTUP_LOGO                      FALSE
 
-//#define GDISP_TOTAL_DISPLAYS                         1
+#define GDISP_TOTAL_DISPLAYS                         1
 
 //#define GDISP_DRIVER_LIST                            GDISPVMT_Win32, GDISPVMT_Win32
 //    #ifdef GDISP_DRIVER_LIST
 //        // For code and speed optimization define as TRUE or FALSE if all controllers have the same capability
-//        #define GDISP_HARDWARE_STREAM_WRITE          FALSE
-//        #define GDISP_HARDWARE_STREAM_READ           FALSE
+        #define GDISP_HARDWARE_STREAM_WRITE          TRUE
+        #define GDISP_HARDWARE_STREAM_READ           TRUE
 //        #define GDISP_HARDWARE_STREAM_POS            FALSE
 //        #define GDISP_HARDWARE_DRAWPIXEL             FALSE
 //        #define GDISP_HARDWARE_CLEARS                FALSE
@@ -171,7 +171,7 @@
 //        #define GDISP_HARDWARE_BITFILLS              FALSE
 //        #define GDISP_HARDWARE_SCROLL                FALSE
 //        #define GDISP_HARDWARE_PIXELREAD             FALSE
-//        #define GDISP_HARDWARE_CONTROL               FALSE
+        #define GDISP_HARDWARE_CONTROL               TRUE
 //        #define GDISP_HARDWARE_QUERY                 FALSE
 //        #define GDISP_HARDWARE_CLIP                  FALSE
 
@@ -190,7 +190,7 @@
 ///////////////////////////////////////////////////////////////////////////
 #define GFX_USE_GWIN                                 TRUE
 
-//#define GWIN_NEED_WINDOWMANAGER                      FALSE
+#define GWIN_NEED_WINDOWMANAGER                      TRUE
 //    #define GWIN_REDRAW_IMMEDIATE                    FALSE
 //    #define GWIN_REDRAW_SINGLEOP                     FALSE
 //    #define GWIN_NEED_FLASHING                       FALSE
@@ -247,7 +247,7 @@
 ///////////////////////////////////////////////////////////////////////////
 // GEVENT                                                                //
 ///////////////////////////////////////////////////////////////////////////
-//#define GFX_USE_GEVENT                               FALSE
+#define GFX_USE_GEVENT                               TRUE
 
 //#define GEVENT_ASSERT_NO_RESOURCE                    FALSE
 //#define GEVENT_MAXIMUM_SIZE                          32
@@ -257,7 +257,7 @@
 ///////////////////////////////////////////////////////////////////////////
 // GTIMER                                                                //
 ///////////////////////////////////////////////////////////////////////////
-//#define GFX_USE_GTIMER                               FALSE
+#define GFX_USE_GTIMER                               TRUE
 
 //#define GTIMER_THREAD_PRIORITY                       HIGH_PRIORITY
 //#define GTIMER_THREAD_WORKAREA_SIZE                  2048
@@ -266,9 +266,9 @@
 ///////////////////////////////////////////////////////////////////////////
 // GQUEUE                                                                //
 ///////////////////////////////////////////////////////////////////////////
-//#define GFX_USE_GQUEUE                               FALSE
+#define GFX_USE_GQUEUE                               TRUE
 
-//#define GQUEUE_NEED_ASYNC                            FALSE
+#define GQUEUE_NEED_ASYNC                            TRUE
 //#define GQUEUE_NEED_GSYNC                            FALSE
 //#define GQUEUE_NEED_FSYNC                            FALSE
 //#define GQUEUE_NEED_BUFFERS                          FALSE
@@ -278,7 +278,7 @@
 ///////////////////////////////////////////////////////////////////////////
 #define GFX_USE_GINPUT                               TRUE
 
-#define GINPUT_NEED_MOUSE                            TRUE
+//    #define GINPUT_NEED_MOUSE                            TRUE
 //    #define GINPUT_TOUCH_STARTRAW                    FALSE
 //    #define GINPUT_TOUCH_NOTOUCH                     FALSE
 //    #define GINPUT_TOUCH_NOCALIBRATE                 FALSE

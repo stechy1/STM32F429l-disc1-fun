@@ -63,7 +63,7 @@ osThreadId defaultTaskHandle;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 static GListener gl;
-static GHandle   ghButton1;
+static GHandle   ghLabel1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -569,52 +569,56 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 static void createWidgets(void) {
-	GWidgetInit	wi;
+	GWidgetInit		wi;
 
 	// Apply some default values for GWIN
-	gwinWidgetClearInit(&wi);
+	wi.customDraw = 0;
+	wi.customParam = 0;
+	wi.customStyle = 0;
 	wi.g.show = TRUE;
 
-	// Apply the button parameters
-	wi.g.width = 100;
-	wi.g.height = 30;
+	// Apply the label parameters
 	wi.g.y = 10;
 	wi.g.x = 10;
-	wi.text = "Push Button";
+	wi.g.width = 100;
+	wi.g.height = 20;
+	wi.text = "Label 1";
 
-	// Create the actual button
-	ghButton1 = gwinButtonCreate(NULL, &wi);
+	// Create the actual label
+	ghLabel1 = gwinLabelCreate(NULL, &wi);
 }
 
 void uGFXMain(void) {
-	GEvent* pe;
+	//GEvent* pe;
 
+	gwinSetDefaultFont(gdispOpenFont("UI2"));
+	gwinSetDefaultStyle(&WhiteWidgetStyle, FALSE);
 	gdispClear(White);
 
 	// create the widget
 	createWidgets();
 
-	// We want to listen for widget events
-	geventListenerInit(&gl);
-	gwinAttachListener(&gl);
-
-	while(1) {
-		// Get an Event
-		pe = geventEventWait(&gl, TIME_INFINITE);
-
-		switch(pe->type) {
-			case GEVENT_GWIN_BUTTON:
-				if (((GEventGWinButton*)pe)->gwin == ghButton1) {
-					// Our button has been pressed
-					//printf("Button clicked\r\n");
-					HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);
-				}
-				break;
-
-			default:
-				break;
-		}
-	}
+//	// We want to listen for widget events
+//	geventListenerInit(&gl);
+//	gwinAttachListener(&gl);
+//
+//	while(1) {
+//		// Get an Event
+//		pe = geventEventWait(&gl, TIME_INFINITE);
+//
+//		switch(pe->type) {
+//			case GEVENT_GWIN_BUTTON:
+//				if (((GEventGWinButton*)pe)->gwin == ghButton1) {
+//					// Our button has been pressed
+//					//printf("Button clicked\r\n");
+//					HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);
+//				}
+//				break;
+//
+//			default:
+//				break;
+//		}
+//	}
 }
 /* USER CODE END 4 */
 
@@ -627,37 +631,19 @@ void StartDefaultTask(void const * argument)
 //			HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);
 //			osDelay(1259);
 //		}
-	GEvent* pe;
+	HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_RESET);
 	gfxInit();
-	HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);
-	gdispClear(White);
-
-	// create the widget
-	createWidgets();
-
-	// We want to listen for widget events
-	geventListenerInit(&gl);
-	gwinAttachListener(&gl);
+	uGFXMain();
+	HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_SET);
 
 	while(1) {
-		// Get an Event
-		pe = geventEventWait(&gl, TIME_INFINITE);
-
-
-		switch(pe->type) {
-			case GEVENT_GWIN_BUTTON:
-				if (((GEventGWinButton*)pe)->gwin == ghButton1) {
-					// Our button has been pressed
-					printf("Button clicked\r\n");
-				}
-				break;
-
-			default:
-				break;
+		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_RESET);
+		gwinSetText(ghLabel1, "This is some text", TRUE);
+		gfxSleepMilliseconds(1000);
+		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_SET);
+		gwinSetText(ghLabel1, "Aaaand some other text", TRUE);
+		gfxSleepMilliseconds(1000);
 		}
-	}
-
-
   /* USER CODE END 5 */ 
 }
 
