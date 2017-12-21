@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project>
-<ProjectName>/mnt/52149F28149F0DDB/Drive/programovani/STM32F429l-disc1-fun/cube/example/\example</ProjectName>
-<CMSIS>../Drivers/CMSIS</CMSIS>
-<HAL_Driver>/home/petr/STM32Cube/Repository//STM32Cube_FW_F4_V1.18.0/Drivers/CMSIS</HAL_Driver>
+<ProjectName>E:\programovani\arm\cube\example\\example</ProjectName>
+<CMSIS>..\Drivers\CMSIS</CMSIS>
+<HAL_Driver>C:\Users\Petr\STM32Cube\Repository\STM32Cube_FW_F4_V1.18.0\Drivers\CMSIS</HAL_Driver>
 
 <Toolchain>SW4STM32</Toolchain>
 <Version>0</Version>
 
 <filestoremove>
 	<file>
-	   		<name>../Src/dma.c</name>
-	   		<name>../Src/usb_otg.c</name>
 	</file>
 </filestoremove>
 
@@ -44,8 +42,8 @@
 		   		<include></include>
     </Aincludes>
     <Cdefines>
-        <define>__weak=&quot;__attribute__((weak))&quot;</define>
-        <define>__packed=&quot;__attribute__((__packed__))&quot;</define>
+        <define>__weak=__attribute__((weak))</define>
+        <define>__packed=__attribute__((__packed__))</define>
     </Cdefines>
     <definestoremove>
         <Adefines>
@@ -60,14 +58,14 @@
     </definestoremove>
     
 	<Cincludes>
-	   <include>../Inc</include>
-	   <include>../Drivers/STM32F4xx_HAL_Driver/Inc</include>
-	   <include>../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy</include>
-	   <include>../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F</include>
-	   <include>../Drivers/CMSIS/Device/ST/STM32F4xx/Include</include>
-	   <include>../Middlewares/Third_Party/FreeRTOS/Source/include</include>
-	   <include>../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS</include>
-	   <include>../Drivers/CMSIS/Include</include>
+	   <include>..\Inc</include>
+	   <include>..\Drivers\STM32F4xx_HAL_Driver\Inc</include>
+	   <include>..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy</include>
+	   <include>..\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F</include>
+	   <include>..\Drivers\CMSIS\Device\ST\STM32F4xx\Include</include>
+	   <include>..\Middlewares\Third_Party\FreeRTOS\Source\include</include>
+	   <include>..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS</include>
+	   <include>..\Drivers\CMSIS\Include</include>
 
     </Cincludes>
       </config>

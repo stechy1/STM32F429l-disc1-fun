@@ -44,11 +44,11 @@
 									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/uGFX" />
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.279153504" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="__weak=&quot;__attribute__((weak))&quot;" />
-									<listOptionValue builtIn="false" value="__packed=&quot;__attribute__((__packed__))&quot;" />
+									
+									
 									<listOptionValue builtIn="false" value="USE_HAL_DRIVER" />
 									<listOptionValue builtIn="false" value="STM32F429xx" />
-								</option>
+								<listOptionValue builtIn="false" value="__weak=__attribute__((weak))" /><listOptionValue builtIn="false" value="__packed=__attribute__((__packed__))" /></option>
 								<option id="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other.1620238152" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value="-fmessage-length=0" valueType="string" />
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.2014215930" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c" />
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s.1373647849" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s" />
@@ -77,7 +77,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers" />
+						<entry excluding="BSP/Components/Common/Release_Notes.html|BSP/Components/ili9341/Release_Notes.html|BSP/Components/stmpe811/Release_Notes.html" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Drivers" />
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Inc" />
 						<entry excluding="Third_Party/uGFX/3rdparty/|Third_Party/uGFX/boards/|Third_Party/uGFX/demos/|Third_Party/uGFX/docs/|Third_Party/uGFX/tools/|Third_Party/uGFX/.gitignore|Third_Party/uGFX/Doxygenfile|Third_Party/uGFX/ffconf.h|Third_Party/uGFX/gfx.h|Third_Party/uGFX/gfx.mk|Third_Party/uGFX/gfxconf.example.h|Third_Party/uGFX/changelog.txt|Third_Party/uGFX/license.html|Third_Party/uGFX/mf_bwfont.h|Third_Party/uGFX/mf_rlefont.h|Third_Party/uGFX/mf_scaledfont.h|Third_Party/uGFX/pffconf.h|Third_Party/uGFX/readme.txt|Third_Party/uGFX/src/gadc/|Third_Party/uGFX/src/gaudio/|Third_Party/uGFX/src/gdisp/|Third_Party/uGFX/src/gdriver/|Third_Party/uGFX/src/gevent/|Third_Party/uGFX/src/gfile/|Third_Party/uGFX/src/ginput/|Third_Party/uGFX/src/gmisc/|Third_Party/uGFX/src/gos/|Third_Party/uGFX/src/gqueue/|Third_Party/uGFX/src/gtimer/|Third_Party/uGFX/src/gtrans/|Third_Party/uGFX/src/gwin/|Third_Party/uGFX/src/gfx_compilers.h|Third_Party/uGFX/src/gfx.c|Third_Party/uGFX/drivers/gadc/|Third_Party/uGFX/drivers/gaudio/|Third_Party/uGFX/drivers/gdisp/AlteraFramereader/|Third_Party/uGFX/drivers/gdisp/ED060SC4/|Third_Party/uGFX/drivers/gdisp/Fb24bpp/|Third_Party/uGFX/drivers/gdisp/framebuffer/|Third_Party/uGFX/drivers/gdisp/HX8347D/|Third_Party/uGFX/drivers/gdisp/ILI9225/|Third_Party/uGFX/drivers/gdisp/ILI9320/|Third_Party/uGFX/drivers/gdisp/ILI9325/|Third_Party/uGFX/drivers/gdisp/ILI9342/|Third_Party/uGFX/drivers/gdisp/ILI93xx/|Third_Party/uGFX/drivers/gdisp/ILI9481/|Third_Party/uGFX/drivers/gdisp/ILI9488/|Third_Party/uGFX/drivers/gdisp/KS0108/|Third_Party/uGFX/drivers/gdisp/LGDP4532/|Third_Party/uGFX/drivers/gdisp/Nokia6610GE12/|Third_Party/uGFX/drivers/gdisp/Nokia6610GE8/|Third_Party/uGFX/drivers/gdisp/PCD8544/|Third_Party/uGFX/drivers/gdisp/PCF8812/|Third_Party/uGFX/drivers/gdisp/QImage/|Third_Party/uGFX/drivers/gdisp/R61505U/|Third_Party/uGFX/drivers/gdisp/RA6963/|Third_Party/uGFX/drivers/gdisp/RA8875/|Third_Party/uGFX/drivers/gdisp/S6D1121/|Third_Party/uGFX/drivers/gdisp/SPFD54124B/|Third_Party/uGFX/drivers/gdisp/SSD1289/|Third_Party/uGFX/drivers/gdisp/SSD1306/|Third_Party/uGFX/drivers/gdisp/SSD1322/|Third_Party/uGFX/drivers/gdisp/SSD1331/|Third_Party/uGFX/drivers/gdisp/SSD1351/|Third_Party/uGFX/drivers/gdisp/SSD1848/|Third_Party/uGFX/drivers/gdisp/SSD1963/|Third_Party/uGFX/drivers/gdisp/SSD2119/|Third_Party/uGFX/drivers/gdisp/ST7565/|Third_Party/uGFX/drivers/gdisp/ST7735/|Third_Party/uGFX/drivers/gdisp/STM32LTDC/|Third_Party/uGFX/drivers/gdisp/TestStub/|Third_Party/uGFX/drivers/gdisp/TLS8204/|Third_Party/uGFX/drivers/gdisp/UC1601s/|Third_Party/uGFX/drivers/gdisp/UC1610/|Third_Party/uGFX/drivers/gdisp/UC8173/|Third_Party/uGFX/drivers/gdisp/readme.txt|Third_Party/uGFX/drivers/ginput/|Third_Party/uGFX/drivers/multiple/" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Middlewares" />
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Src" />
@@ -129,11 +129,11 @@
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include" />
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.279153504" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="__weak=&quot;__attribute__((weak))&quot;" />
-									<listOptionValue builtIn="false" value="__packed=&quot;__attribute__((__packed__))&quot;" />
+									
+									
 									<listOptionValue builtIn="false" value="USE_HAL_DRIVER" />
 									<listOptionValue builtIn="false" value="STM32F429xx" />
-								</option>
+								<listOptionValue builtIn="false" value="__weak=__attribute__((weak))" /><listOptionValue builtIn="false" value="__packed=__attribute__((__packed__))" /></option>
 								<option id="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other.1620238152" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.misc.other" value="-fmessage-length=0" valueType="string" />
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c.2014215930" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.c" />
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s.1373647849" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.input.s" />

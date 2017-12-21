@@ -38,9 +38,9 @@
 									<listOptionValue builtIn="false" value="../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-									<listOptionValue builtIn="false" value="&quot;D:\STM32Cube_FW_F4\repository\STM32Cube_FW_F4_V1.16.0\Middlewares\ST\STemWin\inc&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Stm32F429_stwin_tmpl/Drivers/BSP/STM32F429I-Discovery}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Stm32F429_stwin_tmpl/Utilities/Fonts}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;c:\Users\Petr\STM32Cube\Repository\STM32Cube_FW_F4_V1.18.0\Middlewares\ST\STemWin\inc&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1088344126" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__weak=__attribute__((weak))"/>
@@ -60,10 +60,10 @@
 							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.1302004979" name="MCU GCC Linker" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker">
 								<option id="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script.379371868" name="Linker Script (-T)" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.linker.script" value="../STM32F429ZITx_FLASH.ld" valueType="string"/>
 								<option id="gnu.c.link.option.libs.1707082784" name="Libraries (-l)" superClass="gnu.c.link.option.libs" valueType="libs">
-									<listOptionValue builtIn="false" value=":STemWin532_CM4_GCC.a"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value=":STemWin540_CM4_GCC.a"/>
 								</option>
 								<option id="gnu.c.link.option.paths.166693927" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="&quot;D:\STM32Cube_FW_F4\repository\STM32Cube_FW_F4_V1.16.0\Middlewares\ST\STemWin\Lib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;c:\Users\Petr\STM32Cube\Repository\STM32Cube_FW_F4_V1.18.0\Middlewares\ST\STemWin\Lib&quot;"/>
 								</option>
 								<option id="gnu.c.link.option.ldflags.1937364744" name="Linker flags" superClass="gnu.c.link.option.ldflags" value="-specs=nosys.specs -specs=nano.specs" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.501838889" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
@@ -191,4 +191,5 @@
 			<resource resourceType="PROJECT" workspacePath="Stm32F429_stwin_tmpl"/>
 		</configuration>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>

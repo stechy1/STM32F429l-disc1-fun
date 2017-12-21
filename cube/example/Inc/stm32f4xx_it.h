@@ -48,7 +48,10 @@
 /* Exported functions ------------------------------------------------------- */
 
 void SysTick_Handler(void);
+void USART1_IRQHandler(void);
+void UART5_IRQHandler(void);
 void TIM6_DAC_IRQHandler(void);
+void LTDC_IRQHandler(void);
 
 #ifdef __cplusplus
 }
