@@ -44,11 +44,10 @@
 #define STMPE811_TIMEOUT			0x3000
 
 
-extern I2C_HandleTypeDef hi2c3;
+//extern I2C_HandleTypeDef hi2c3;
 
 static bool_t init_board(GMouse* m, unsigned driverinstance) {
-	//stmpe811_Init(driverinstance);
-
+	stmpe811_Init((uint16_t)STMPE811_ADDR);
 	return TRUE;
 }
 
@@ -65,40 +64,40 @@ static GFXINLINE void release_bus(GMouse* m) {
 }
 
 static void write_reg(GMouse* m, uint8_t reg, uint8_t val) {
-	uint8_t txbuf[2];
-	//IOE_Write(STMPE811_ADDR, reg, val);
-	HAL_StatusTypeDef status = HAL_OK;
-	txbuf[0] = reg;
-	txbuf[1] = val;
-
-	 status = HAL_I2C_Mem_Write(&hi2c3, (uint16_t)STMPE811_ADDR<<1, (uint16_t)reg, I2C_MEMADD_SIZE_8BIT, &val, 1, STMPE811_TIMEOUT);
-
-	  /* Check the communication status */
-	  if(status != HAL_OK)
-	  {
-	    /* Re-Initialize the BUS */
-	    //I2Cx_Error();
-		  _Error_Handler(__FILE__, __LINE__);
-	  }
+//	uint8_t txbuf[2];
+//	//IOE_Write(STMPE811_ADDR, reg, val);
+//	HAL_StatusTypeDef status = HAL_OK;
+//	txbuf[0] = reg;
+//	txbuf[1] = val;
+//
+//	 status = HAL_I2C_Mem_Write(&hi2c3, (uint16_t)STMPE811_ADDR<<1, (uint16_t)reg, I2C_MEMADD_SIZE_8BIT, &val, 1, STMPE811_TIMEOUT);
+//
+//	  /* Check the communication status */
+//	  if(status != HAL_OK)
+//	  {
+//	    /* Re-Initialize the BUS */
+//	    //I2Cx_Error();
+//		  _Error_Handler(__FILE__, __LINE__);
+//	  }
+	IOE_Write((uint8_t)STMPE811_ADDR, reg, val);
 }
 
 static uint8_t read_byte(GMouse* m, uint8_t reg) {
-	//return IOE_Read(STMPE811_ADDR, reg);
-	  HAL_StatusTypeDef status = HAL_OK;
-	  uint8_t value = 0;
-
-	  status = HAL_I2C_Mem_Read(&hi2c3, (uint16_t)STMPE811_ADDR<<1, reg, I2C_MEMADD_SIZE_8BIT, &value, 1, STMPE811_TIMEOUT);
-
-	  /* Check the communication status */
-	  if(status != HAL_OK)
-	  {
-	    /* Re-Initialize the BUS */
-	    //I2Cx_Error();
-		  _Error_Handler(__FILE__, __LINE__);
-
-	  }
-	  return value;
-
+//	  HAL_StatusTypeDef status = HAL_OK;
+//	  uint8_t value = 0;
+//
+//	  status = HAL_I2C_Mem_Read(&hi2c3, (uint16_t)STMPE811_ADDR<<1, reg, I2C_MEMADD_SIZE_8BIT, &value, 1, STMPE811_TIMEOUT);
+//
+//	  /* Check the communication status */
+//	  if(status != HAL_OK)
+//	  {
+//	    /* Re-Initialize the BUS */
+//	    //I2Cx_Error();
+//		  _Error_Handler(__FILE__, __LINE__);
+//
+//	  }
+//	  return value;
+	return IOE_Read((uint8_t)STMPE811_ADDR, reg);
 }
 
 static uint16_t read_word(GMouse* m, uint8_t reg) {

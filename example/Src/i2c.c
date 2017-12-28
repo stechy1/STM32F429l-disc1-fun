@@ -75,6 +75,7 @@ void MX_I2C3_Init(void)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
+
 }
 
 void HAL_I2C_MspInit(I2C_HandleTypeDef* i2cHandle)

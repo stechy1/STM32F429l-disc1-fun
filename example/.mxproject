@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=E:/programovani/arm/cube/example/Inc
+HeaderPath=E:/programovani/arm/example/Inc
 HeaderFiles=gpio.h;dma2d.h;fmc.h;FreeRTOSConfig.h;ltdc.h;stm32f4xx_it.h;stm32f4xx_hal_conf.h;main.h;spi.h;dma.h;usb_otg.h;i2c.h;usart.h;
-SourcePath=E:/programovani/arm/cube/example/Src
+SourcePath=E:/programovani/arm/example/Src
 SourceFiles=gpio.c;dma2d.c;fmc.c;freertos.c;ltdc.c;stm32f4xx_it.c;stm32f4xx_hal_msp.c;stm32f4xx_hal_timebase_TIM.c;main.c;spi.c;dma.c;usb_otg.c;i2c.c;usart.c;
 
 [PreviousLibFiles]

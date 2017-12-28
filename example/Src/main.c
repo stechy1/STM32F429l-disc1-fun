@@ -111,7 +111,7 @@ int main(void)
   MX_FMC_Init();
   MX_LTDC_Init();
   MX_SPI5_Init();
-  MX_I2C3_Init();
+  //MX_I2C3_Init();
   MX_UART5_Init();
   MX_USART1_UART_Init();
 

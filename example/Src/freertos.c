@@ -57,6 +57,7 @@
 
 /* Variables -----------------------------------------------------------------*/
 osThreadId defaultTaskHandle;
+osThreadId anotherTaskHandle;
 
 /* USER CODE BEGIN Variables */
 static GHandle   ghLabel1;
@@ -66,6 +67,7 @@ static GListener gl;
 
 /* Function prototypes -------------------------------------------------------*/
 void StartDefaultTask(void const * argument);
+void StartAnotherTask(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -101,8 +103,12 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
+  /* definition and creation of anotherTask */
+  osThreadDef(anotherTask, StartAnotherTask, osPriorityNormal, 0, 128);
+  anotherTaskHandle = osThreadCreate(osThread(anotherTask), NULL);
+
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -116,9 +122,10 @@ void StartDefaultTask(void const * argument)
 
   /* USER CODE BEGIN StartDefaultTask */
 	GEvent* pe;
-  /* Infinite loop */
 	gfxInit();
 	uGFXMain();
+	geventListenerInit(&gl);
+	gwinAttachListener(&gl);
 	while(1) {
 			// Get an Event
 			pe = geventEventWait(&gl, TIME_INFINITE);
@@ -127,19 +134,19 @@ void StartDefaultTask(void const * argument)
 				case GEVENT_GWIN_BUTTON:
 					if (((GEventGWinButton*)pe)->gwin == ghButton1) {
 						// Our button has been pressed
-						HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_SET);
 						gwinSetText(ghLabel1, "This is some text", TRUE);
 						gfxSleepMilliseconds(1000);
-						HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_RESET);
 						gwinSetText(ghLabel1, "Aaaand some other text", TRUE);
 						gfxSleepMilliseconds(1000);
 					}
 					break;
 
 				default:
-					HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
-					gfxSleepMilliseconds(1000);
 					HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
+					gfxSleepMilliseconds(1000);
+					HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
 					break;
 			}
 		}
@@ -154,7 +161,25 @@ void StartDefaultTask(void const * argument)
   /* USER CODE END StartDefaultTask */
 }
 
+/* StartAnotherTask function */
+void StartAnotherTask(void const * argument)
+{
+  /* USER CODE BEGIN StartAnotherTask */
+  /* Infinite loop */
+  for(;;)
+  {
+		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
+		gfxSleepMilliseconds(1000);
+		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
+		gfxSleepMilliseconds(1000);
+  }
+  /* USER CODE END StartAnotherTask */
+}
+
 /* USER CODE BEGIN Application */
+
+
+
 void createLabel() {
 	GWidgetInit		wi;
 
@@ -200,7 +225,7 @@ void uGFXMain() {
 
 	// create the widget
 	createLabel();
-	//createButton();
+	createButton();
 }
 /* USER CODE END Application */
 
