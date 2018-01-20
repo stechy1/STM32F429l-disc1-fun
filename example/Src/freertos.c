@@ -60,9 +60,9 @@ osThreadId defaultTaskHandle;
 osThreadId anotherTaskHandle;
 
 /* USER CODE BEGIN Variables */
-static GHandle   ghLabel1;
-static GHandle   ghButton1;
-static GListener gl;
+GHandle   ghLabel1;
+GHandle   ghButton1;
+GListener gl;
 /* USER CODE END Variables */
 
 /* Function prototypes -------------------------------------------------------*/
@@ -150,14 +150,6 @@ void StartDefaultTask(void const * argument)
 					break;
 			}
 		}
-//	while (1) {
-//		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_RESET);
-//		gwinSetText(ghLabel1, "This is some text", TRUE);
-//		gfxSleepMilliseconds(1000);
-//		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_SET);
-//		gwinSetText(ghLabel1, "Aaaand some other text", TRUE);
-//		gfxSleepMilliseconds(1000);
-//	}
   /* USER CODE END StartDefaultTask */
 }
 
@@ -204,14 +196,17 @@ void createButton() {
 	GWidgetInit	wi;
 
 	// Apply some default values for GWIN
-	gwinWidgetClearInit(&wi);
+	//gwinWidgetClearInit(&wi);
+	wi.customDraw = 0;
+	wi.customParam = 0;
+	wi.customStyle = 0;
 	wi.g.show = TRUE;
 
 	// Apply the button parameters
 	wi.g.width = 100;
 	wi.g.height = 30;
-	wi.g.y = 50;
-	wi.g.x = 10;
+	wi.g.y = 1;
+	wi.g.x = 1;
 	wi.text = "Push Button";
 
 	// Create the actual button
@@ -224,7 +219,7 @@ void uGFXMain() {
 	gdispClear(White);
 
 	// create the widget
-	createLabel();
+	//createLabel();
 	createButton();
 }
 /* USER CODE END Application */

@@ -29,6 +29,7 @@
 	#define GMOUSE_STMPE811_TEST_MODE		FALSE
 #endif
 
+
 /**
  * Notes:
  *

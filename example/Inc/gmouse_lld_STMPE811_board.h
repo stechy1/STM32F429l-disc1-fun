@@ -9,6 +9,8 @@
 #define GMOUSE_LLD_STMPE811_BOARD_H_
 
 #include "../Drivers/BSP/Components/stmpe811/stmpe811.h"
+#include "../Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery.h"
+#include "../Drivers/BSP/STM32F429I-Discovery/stm32f429i_discovery_ts.h"
 
 // Resolution and Accuracy Settings
 #define GMOUSE_STMPE811_PEN_CALIBRATE_ERROR		8
@@ -37,17 +39,11 @@
 
 #define I2C_MEMADD_SIZE_8BIT            0x00000001U
 
-// Slave address
-#define STMPE811_ADDR				0x41
-
 // Maximum timeout
 #define STMPE811_TIMEOUT			0x3000
 
-
-//extern I2C_HandleTypeDef hi2c3;
-
 static bool_t init_board(GMouse* m, unsigned driverinstance) {
-	stmpe811_Init((uint16_t)STMPE811_ADDR);
+	BSP_TS_Init(240,320);
 	return TRUE;
 }
 
@@ -64,44 +60,23 @@ static GFXINLINE void release_bus(GMouse* m) {
 }
 
 static void write_reg(GMouse* m, uint8_t reg, uint8_t val) {
-//	uint8_t txbuf[2];
-//	//IOE_Write(STMPE811_ADDR, reg, val);
-//	HAL_StatusTypeDef status = HAL_OK;
-//	txbuf[0] = reg;
-//	txbuf[1] = val;
-//
-//	 status = HAL_I2C_Mem_Write(&hi2c3, (uint16_t)STMPE811_ADDR<<1, (uint16_t)reg, I2C_MEMADD_SIZE_8BIT, &val, 1, STMPE811_TIMEOUT);
-//
-//	  /* Check the communication status */
-//	  if(status != HAL_OK)
-//	  {
-//	    /* Re-Initialize the BUS */
-//	    //I2Cx_Error();
-//		  _Error_Handler(__FILE__, __LINE__);
-//	  }
-	IOE_Write((uint8_t)STMPE811_ADDR, reg, val);
+	IOE_Write((uint8_t)TS_I2C_ADDRESS, reg, val);
 }
 
 static uint8_t read_byte(GMouse* m, uint8_t reg) {
-//	  HAL_StatusTypeDef status = HAL_OK;
-//	  uint8_t value = 0;
-//
-//	  status = HAL_I2C_Mem_Read(&hi2c3, (uint16_t)STMPE811_ADDR<<1, reg, I2C_MEMADD_SIZE_8BIT, &value, 1, STMPE811_TIMEOUT);
-//
-//	  /* Check the communication status */
-//	  if(status != HAL_OK)
-//	  {
-//	    /* Re-Initialize the BUS */
-//	    //I2Cx_Error();
-//		  _Error_Handler(__FILE__, __LINE__);
-//
-//	  }
-//	  return value;
-	return IOE_Read((uint8_t)STMPE811_ADDR, reg);
+	return IOE_Read((uint8_t)TS_I2C_ADDRESS, reg);
 }
 
 static uint16_t read_word(GMouse* m, uint8_t reg) {
+	uint8_t  data[2];
+	uint16_t result;
 
+	IOE_ReadMultiple((uint8_t)TS_I2C_ADDRESS, reg, data, sizeof(data)) ;
+
+	/* Calculate positions values */
+	result = (data[0] << 8)|(data[1] << 0);
+
+	return result;
 }
 
 

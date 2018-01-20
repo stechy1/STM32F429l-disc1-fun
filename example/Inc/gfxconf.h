@@ -81,7 +81,7 @@
 //#define GDISP_NEED_CONVEX_POLYGON                    FALSE
 //#define GDISP_NEED_SCROLL                            FALSE
 //#define GDISP_NEED_PIXELREAD                         FALSE
-//#define GDISP_NEED_CONTROL                           FALSE
+#define GDISP_NEED_CONTROL                           TRUE
 //#define GDISP_NEED_QUERY                             FALSE
 #define GDISP_NEED_MULTITHREAD                       TRUE
 //#define GDISP_NEED_STREAMING                         FALSE
@@ -92,8 +92,8 @@
 //    #define GDISP_NEED_ANTIALIAS                     FALSE
 //    #define GDISP_NEED_UTF8                          FALSE
 //    #define GDISP_NEED_TEXT_KERNING                  FALSE
-//    #define GDISP_INCLUDE_FONT_UI1                   FALSE
-    #define GDISP_INCLUDE_FONT_UI2                   TRUE		// The smallest preferred font.
+    #define GDISP_INCLUDE_FONT_UI1                   TRUE
+//    #define GDISP_INCLUDE_FONT_UI2                   TRUE		// The smallest preferred font.
 //    #define GDISP_INCLUDE_FONT_LARGENUMBERS          FALSE
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANS10          FALSE
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANS12          FALSE
@@ -278,10 +278,11 @@
 ///////////////////////////////////////////////////////////////////////////
 #define GFX_USE_GINPUT                               TRUE
 
-//    #define GINPUT_NEED_MOUSE                            TRUE
+    #define GINPUT_NEED_MOUSE                            TRUE
 //    #define GINPUT_TOUCH_STARTRAW                    FALSE
 //    #define GINPUT_TOUCH_NOTOUCH                     FALSE
-//    #define GINPUT_TOUCH_NOCALIBRATE                 FALSE
+    #define GINPUT_TOUCH_NOCALIBRATE                 TRUE
+    #define GMOUSE_STMPE811_SELF_CALIBRATE           TRUE
 //    #define GINPUT_TOUCH_NOCALIBRATE_GUI             FALSE
 //    #define GINPUT_MOUSE_POLL_PERIOD                 25
 //    #define GINPUT_MOUSE_CLICK_TIME                  300
