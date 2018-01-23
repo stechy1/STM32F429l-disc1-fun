@@ -306,7 +306,7 @@ typedef uint16_t	colorformat;
 
 	// Calculate HTML2COLOR
 	#if COLOR_BITS_R + COLOR_SHIFT_R == 24
-		#define HTML2COLOR_R(h)		((h) & ((0xFFL & ~((1<<(8-COLOR_BITS_R))-1))<<16))
+		#define HTML2COLOR_R(h)	((h) & ((0xFFL & ~((1<<(8-COLOR_BITS_R))-1))<<16))
 	#elif COLOR_BITS_R + COLOR_SHIFT_R > 24
 		#define HTML2COLOR_R(h)		(((h) & ((0xFFL & ~((1<<(8-COLOR_BITS_R))-1))<<16)) << (COLOR_BITS_R+COLOR_SHIFT_R-24))
 	#else // COLOR_BITS_R + COLOR_SHIFT_R < 24

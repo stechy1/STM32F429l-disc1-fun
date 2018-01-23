@@ -123,6 +123,7 @@ void StartDefaultTask(void const * argument)
   /* USER CODE BEGIN StartDefaultTask */
 	GEvent* pe;
 	gfxInit();
+	//gdispSetOrientation(GDISP_ROTATE_180);
 	uGFXMain();
 	geventListenerInit(&gl);
 	gwinAttachListener(&gl);
@@ -205,8 +206,8 @@ void createButton() {
 	// Apply the button parameters
 	wi.g.width = 100;
 	wi.g.height = 30;
-	wi.g.y = 1;
-	wi.g.x = 1;
+	wi.g.x = 10;
+	wi.g.y = 30;
 	wi.text = "Push Button";
 
 	// Create the actual button
@@ -219,7 +220,7 @@ void uGFXMain() {
 	gdispClear(White);
 
 	// create the widget
-	//createLabel();
+	createLabel();
 	createButton();
 }
 /* USER CODE END Application */

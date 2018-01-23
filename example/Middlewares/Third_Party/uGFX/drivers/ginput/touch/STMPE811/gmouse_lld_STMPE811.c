@@ -7,7 +7,7 @@
 
 #include "gfx.h"
 
-#if GFX_USE_GINPUT && GINPUT_NEED_MOUSE
+//#if GFX_USE_GINPUT && GINPUT_NEED_MOUSE
 
 #define GMOUSE_DRIVER_VMT		GMOUSEVMT_STMPE811
 #include "../../../../src/ginput/ginput_driver_mouse.h"
@@ -266,5 +266,5 @@ const GMouseVMT const GMOUSE_DRIVER_VMT[1] = {{
 	0				// calload
 }};
 
-#endif /* GFX_USE_GINPUT && GINPUT_NEED_MOUSE */
+//#endif /* GFX_USE_GINPUT && GINPUT_NEED_MOUSE */
 

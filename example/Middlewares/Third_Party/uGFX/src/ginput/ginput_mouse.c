@@ -193,6 +193,8 @@ static void GetMouseReading(GMouse *m) {
 
 						switch(gdispGGetOrientation(m->display)) {
 							case GDISP_ROTATE_0:
+								r.x = w - 1 - r.x;
+								r.y = h - 1 - r.y;
 								break;
 							case GDISP_ROTATE_90:
 								t = r.x;
