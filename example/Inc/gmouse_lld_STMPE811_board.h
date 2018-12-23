@@ -37,8 +37,6 @@
 // If TRUE this is a really slow CPU and we should always clear the FIFO between reads.
 #define GMOUSE_STMPE811_SLOW_CPU				FALSE
 
-#define I2C_MEMADD_SIZE_8BIT            0x00000001U
-
 // Maximum timeout
 #define STMPE811_TIMEOUT			0x3000
 
