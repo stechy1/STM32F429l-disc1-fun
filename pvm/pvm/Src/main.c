@@ -39,7 +39,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
-#include "delay.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -50,7 +49,7 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+int global_function_index = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -71,13 +70,15 @@ double pila(size_t time) {
 }
 
 double sinus(size_t time) {
-	size_t x = time % 100;
+	//size_t x = time % 100;
 
-	if (x < 50) {
-		return x / 100.0;
-	}
+	return (sin(time/100.0)+1)/2;
 
-	return (100 - x) / 100.0;
+//	if (x < 50) {
+//		return x / 100.0;
+//	}
+//
+//	return (100 - x) / 100.0;
 
 }
 /* USER CODE END 0 */
@@ -121,33 +122,32 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  for (size_t counter = 0;; counter++)
-  {
-		/* USER CODE END WHILE */
-	    delay = maxDelay * ratio;
+	for (size_t counter = 0;; counter++) {
+  /* USER CODE END WHILE */
+
+  /* USER CODE BEGIN 3 */
+		delay = maxDelay * ratio;
 		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
 		delay_us((delay + 1));
 		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
 		delay_us((maxDelay + 1) - delay);
 
-		if ((counter % 3) == 0) {
-			ratio = funkce[index](counter);
-		}
+		//if ((counter % 3) == 0) {
+		ratio = funkce[global_function_index](counter);
+		//}
 
-//		if ((counter % 3) == 0) {
-//			delay += increment;
-//
-//			if (delay == maxDelay) {
-//				//delay = 100;
-//				increment = -100;
-//			} else if (delay == 0) {
-//				increment = 100;
-//			}
-//		}
+		//		if ((counter % 3) == 0) {
+		//			delay += increment;
+		//
+		//			if (delay == maxDelay) {
+		//				//delay = 100;
+		//				increment = -100;
+		//			} else if (delay == 0) {
+		//				increment = 100;
+		//			}
+		//		}
 
-		/* USER CODE BEGIN 3 */
-
-  }
+	}
   /* USER CODE END 3 */
 
 }
@@ -296,12 +296,18 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA0 PA1 PA2 PA3 
-                           PA4 PA5 PA6 PA7 
-                           PA8 PA11 PA12 PA15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3 
-                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7 
-                          |GPIO_PIN_8|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_15;
+  /*Configure GPIO pin : BTN_FCE_CHANGE_Pin */
+  GPIO_InitStruct.Pin = BTN_FCE_CHANGE_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(BTN_FCE_CHANGE_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PA1 PA2 PA3 PA4 
+                           PA5 PA6 PA7 PA8 
+                           PA11 PA12 PA15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4 
+                          |GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8 
+                          |GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -349,10 +355,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+	global_function_index++;
 
+	if (global_function_index == 2)
+		global_function_index = 0;
+}
 /* USER CODE END 4 */
 
 /**
