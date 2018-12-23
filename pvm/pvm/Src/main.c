@@ -64,14 +64,32 @@ static void MX_USART1_UART_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+double pila(size_t time) {
+	size_t x = time % 100;
 
+	return (x+1) / 100.0;
+}
+
+double sinus(size_t time) {
+	size_t x = time % 100;
+
+	if (x < 50) {
+		return x / 100.0;
+	}
+
+	return (100 - x) / 100.0;
+
+}
 /* USER CODE END 0 */
 
 int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+	double (*funkce[])(size_t time) = {
+			pila,
+			sinus
+	};
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -97,32 +115,35 @@ int main(void)
   /* USER CODE BEGIN 2 */
   const int maxDelay = 10000;
   int delay = 100;
-  int counter = 0;
-  int increment = 100;
+  int index = 1;
+  double ratio = 0.5;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
+  for (size_t counter = 0;; counter++)
   {
 		/* USER CODE END WHILE */
+	    delay = maxDelay * ratio;
 		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
 		delay_us((delay + 1));
 		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
 		delay_us((maxDelay + 1) - delay);
 
-		counter++;
-
 		if ((counter % 3) == 0) {
-			delay += increment;
-
-			if (delay == maxDelay) {
-				//delay = 100;
-				increment = -100;
-			} else if (delay == 0) {
-				increment = 100;
-			}
+			ratio = funkce[index](counter);
 		}
+
+//		if ((counter % 3) == 0) {
+//			delay += increment;
+//
+//			if (delay == maxDelay) {
+//				//delay = 100;
+//				increment = -100;
+//			} else if (delay == 0) {
+//				increment = 100;
+//			}
+//		}
 
 		/* USER CODE BEGIN 3 */
 
