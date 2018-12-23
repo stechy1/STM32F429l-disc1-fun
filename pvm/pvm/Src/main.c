@@ -95,21 +95,34 @@ int main(void)
   MX_USART1_UART_Init();
 
   /* USER CODE BEGIN 2 */
-
+  const int maxDelay = 10000;
+  int delay = 100;
+  int counter = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-  /* USER CODE END WHILE */
+		/* USER CODE END WHILE */
 		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
-		delay_ms(1000);
+		delay_us(delay);
 		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
-		delay_ms(1000);
-		//sleep(1);
+		delay_us(maxDelay - delay);
+		//HAL_GPIO_TogglePin(LED_1_GPIO_Port, LED_1_Pin);
+		//delay_ms(delay);
 
-  /* USER CODE BEGIN 3 */
+		counter++;
+
+		if (counter % 1000) {
+			delay += 100;
+
+			if (delay == maxDelay) {
+				delay = 100;
+			}
+		}
+
+		/* USER CODE BEGIN 3 */
 
   }
   /* USER CODE END 3 */
